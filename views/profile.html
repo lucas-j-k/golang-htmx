@@ -1,0 +1,23 @@
+<div class="flex justify-center">
+  <div class="w-11/12 md:w-6/12 bg-zinc-950 p-4 rounded-md shadow">
+    <div class="mb-6">
+      <h2 class="text-amber-500">Name</h2>
+      <p>{{.User.FirstName}} {{.User.LastName}}</p>
+    </div>
+
+    <div class="mb-6">
+      <h2 class="text-amber-500">Username</h2>
+      <p>{{.User.Username}}</p>
+    </div>
+
+    <div class="mb-6">
+      <h2 class="text-amber-500">Email</h2>
+      <p>{{.User.Email}}</p>
+    </div>
+
+    <div class="mb-6">
+      <h2 class="text-amber-500">User since</h2>
+      <p>{{.User.RowInserted.Format "02 January 2006"}}</p>
+    </div>
+  </div>
+</div>

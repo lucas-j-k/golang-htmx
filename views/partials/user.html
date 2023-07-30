@@ -1,0 +1,17 @@
+{{with .User}}
+<div class="pr-8 flex justify-end">
+  <div class="flex items-center">
+    <i class="fa-regular fa-user"></i>
+    <p class="ml-1">{{.Username}}</p>
+  </div>
+
+  <form action="/logout" method="POST" class="ml-8">
+    <div>
+      <button class="text-amber-500" type="submit">
+        Logout
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+      </button>
+    </div>
+  </form>
+</div>
+{{end}}

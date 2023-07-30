@@ -1,0 +1,52 @@
+<div>
+  {{if not .Links}}
+  <div class="mt-12 p-4">
+    <p class="text-center mb-4">No links found</p>
+    <p class="text-center py-4">
+      <a class="btn-primary" href="/admin/links/new">Add a link now</a>
+    </p>
+  </div>
+  {{end}}
+
+  <ul class="p-2">
+    {{range .Links}}
+
+    <!-- Single link display card -->
+    <li
+      class="bg-zinc-950 mb-8 p-4 rounded-md shadow flex justify-around"
+    >
+      <div class="w-6/12">
+        <div class="mb-4">
+          <h3 class="text-amber-500">URL</h3>
+          <p class="text-zinc-400">{{.Url}}</p>
+        </div>
+        <div class="mb-4">
+          <h3 class="text-amber-500">Link Type</h3>
+          <p class="text-zinc-400">
+            <i class="{{.IconClass.String}}"></i>
+            <span class="ml-1">{{.LinkTypeName.String}}</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="w-3/12">
+        <div class="mb-4">
+          <h3 class="text-amber-500">Published</h3>
+          <p class="text-zinc-400">
+            {{if eq .Published true}}Yes{{else}}No{{end}}
+          </p>
+        </div>
+      </div>
+
+      <div class="w-3/12">
+        <div class="flex justify-end">
+          <a class="text-amber-500" href="/admin/links/{{.ID}}/update"
+            >Edit<i class="fa-regular fa-pen-to-square ml-1"></i
+          ></a>
+        </div>
+      </div>
+    </li>
+    <!-- End single link display card -->
+    {{end}}
+  </ul>
+</div>

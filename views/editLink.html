@@ -1,0 +1,115 @@
+<div class="flex justify-center relative" id="edit-link-wrapper">
+  <div class="w-11/12 md:w-6/12 p-4 bg-zinc-950 shadow rounded-md">
+    <form hx-post="/admin/links/{{.Link.ID}}/update" hx-target="#edit-link-wrapper" hx-swap="outerHTML">
+      <div class="form-control">
+        <label for="url">URL</label>
+        <input
+          name="url"
+          class="input-text"
+          type="text"
+          value="{{.Link.Url}}"
+        />
+        {{ if .ValidationErrors.URL}}
+        <div class="form-field-error">Invalid URL</div>
+        {{ end }}
+      </div>
+
+      <div class="form-control mb-6">
+        <label for="link_type_id">Link Type</label>
+        <select class="input-select" name="link_type_id" id="link_type_id">
+          {{range .LinkTypes}}
+          <option
+            value="{{.ID}}"
+            {{if
+            eq
+            .ID
+            $.Link.LinkTypeID}}selected{{end}}
+          >
+            {{.Name}}
+          </option>
+          {{end}}
+        </select>
+        {{ if .ValidationErrors.LinkTypeID}}
+        <div class="form-field-error">Invalid Link Type</div>
+        {{ end }}
+      </div>
+
+      <div class="form-control mb-12 flex justify-between items-center">
+        <label for="published">Published</label>
+        <input
+          type="checkbox"
+          class="input-checkbox"
+          name="published"
+          value="true"
+          {{if
+          eq
+          .Link.Published
+          true}}checked
+          {{end}}
+        />
+      </div>
+
+      <div id="edit-controls-row" class="flex justify-end relative">
+        <div>
+          <button class="btn-primary" type="submit">
+            Save <i class="fa-regular fa-floppy-disk ml-1"></i>
+          </button>
+        </div>
+
+        <div class="ml-2">
+          <button id="delete-button" class="btn-secondary" type="button">
+            Delete <i class="fa-regular fa-trash-can ml-1"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Delete confirmation -->
+    <div
+      id="delete-confirmation-panel"
+      class="hidden rounded-sm bg-zinc-950 text-rose-500"
+    >
+      <div class="flex items-center justify-between">
+        <p>Delete this Link?</p>
+        <div class="flex justify-end">
+          <form
+            action="/admin/links/{{.Link.ID}}/delete"
+            method="POST"
+            class="flex items-center"
+          >
+            <button id="delete-confirm-button" class="btn-danger" type="submit">
+              Confirm <i class="fa-regular fa-trash-can ml-1"></i>
+            </button>
+            <button
+              type="button"
+              class="btn-secondary ml-2"
+              id="delete-cancel-button"
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- End Delete confirmation -->
+  </div>
+</div>
+
+<script>
+  // show/hide the delete confirmation when user clicks to delete
+
+  var confirmationPanel = document.getElementById("delete-confirmation-panel");
+  var editControlsRow = document.getElementById("edit-controls-row");
+  var confirmButton = document.getElementById("delete-button");
+  var cancelButton = document.getElementById("delete-cancel-button");
+
+  confirmButton.addEventListener("click", () => {
+    confirmationPanel.classList.remove("hidden");
+    editControlsRow.classList.add("hidden");
+  });
+  cancelButton.addEventListener("click", () => {
+    confirmationPanel.classList.add("hidden");
+    editControlsRow.classList.remove("hidden");
+  });
+
+</script>

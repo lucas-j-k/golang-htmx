@@ -1,0 +1,81 @@
+<div class="flex justify-center" id="signup-wrapper">
+  <div class="w-11/12 md:w-6/12 p-4 bg-zinc-950 shadow rounded-md">
+    <form hx-post="/register" hx-target="#signup-wrapper" hx-swap="outerHTML">
+      <div class="form-control">
+        <label class="form-label" for="firstName">First Name</label>
+        <input
+          name="firstName"
+          type="text"
+          class="input-text"
+          value="{{.FormValues.FirstName}}"
+        />
+        {{ if .ValidationErrors.FirstName}}
+        <div class="form-field-error">Field is required</div>
+        {{ end }}
+      </div>
+
+      <div class="form-control">
+        <label class="form-label" for="lastName">Last Name</label>
+        <input
+          name="lastName"
+          type="text"
+          class="input-text"
+          value="{{.FormValues.LastName}}"
+        />
+        {{ if .ValidationErrors.LastName}}
+        <div class="form-field-error">Field is required</div>
+        {{ end }}
+      </div>
+
+      <div class="form-control">
+        <label class="form-label" for="username">Username</label>
+        <input
+          name="username"
+          type="text"
+          class="input-text"
+          value="{{.FormValues.Username}}"
+        />
+        {{ if .ValidationErrors.Username}}
+        <div class="form-field-error">
+          Field is required. Must be between 6 and 50 characters in length
+        </div>
+        {{ end }}
+      </div>
+
+      <div class="form-control">
+        <label class="form-label" for="email"> Email</label>
+        <input
+          name="email"
+          type="email"
+          class="input-text"
+          value="{{.FormValues.Email}}"
+        />
+        {{ if .ValidationErrors.Email}}
+        <div class="form-field-error">Invalid email</div>
+        {{ end }}
+      </div>
+
+      <div class="form-control">
+        <label class="form-label" for="password"> Password</label>
+        <input name="password" type="password" class="input-text" />
+        {{ if .ValidationErrors.Password}}
+        <div class="form-field-error">
+          Password is required and must contain a minimum of 8 characters
+        </div>
+        {{ end }}
+      </div>
+
+      <div class="form-control">
+        <label class="form-label" for="passwordConfirm">Confirm Password</label>
+        <input name="passwordConfirm" type="password" class="input-text" />
+        {{ if .ValidationErrors.PasswordConfirm}}
+        <div class="form-field-error">Passwords must match</div>
+        {{ end }}
+      </div>
+
+      <div class="form-control">
+        <button class="btn-primary" type="submit">Sign Up</button>
+      </div>
+    </form>
+  </div>
+</div>

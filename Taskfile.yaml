@@ -1,0 +1,89 @@
+# https://taskfile.dev
+
+version: '3'
+
+dotenv: [".env"]
+
+tasks:
+
+    ###################################################
+    # App
+    ###################################################
+    runapp:
+        desc: Start the go server
+        cmds:
+        - go run main.go
+
+    ###################################################
+    # MySQL + Redis - Docker
+    ###################################################
+    runsql:
+        desc: Start/Restart a MySQL container in Docker
+        cmds:
+        - docker rm -f mysql || true # Delete container if exists
+        - docker run --name mysql -e MYSQL_ROOT_PASSWORD="$MYSQL_PASS" -e MYSQL_DATABASE=links_db -p 3306:3306 --detach mysql:8.0
+    sqlcli:
+        desc: Open a CLI into MYSQL inside Docker
+        cmds:
+        - docker exec -it mysql mysql -p
+    runredis:
+        desc: Start / Restart a Redis container in Docker
+        cmds:
+        - docker rm -f redis || true # Delete container if exists
+        - docker run --name redis -d -p 6379:6379 -e REDIS_PASSWORD="$REDIS_PASSWORD" redis:7.0-alpine
+    rediscli:
+        desc: Open a CLI into Redis inside Docker
+        cmds:
+        - docker exec -it redis redis-cli
+    stopcontainers:
+        desc: Stop MySQL and Redis containers
+        cmds:
+        - docker stop mysql
+        - docker stop redis
+
+    ###################################################
+    # DB Migrations
+    ###################################################
+    newmigration:
+        desc: Create a new migration file. Example - task newmigration -- add_new_cols
+        cmds:
+        - goose -dir ./database/migrations create {{.CLI_ARGS}} sql
+    newseed:
+        desc: Create a new seed file. Example - task newseed -- add_dummy_rows
+        cmds:
+        - goose -dir ./database/seeds create {{.CLI_ARGS}} sql
+    migrate:
+        desc: Run all migration files (up)
+        cmds:
+        - goose -dir ./database/migrations -table _migrations mysql "$MYSQL_USER:$MYSQL_PASS@tcp(localhost:3306)/links_db?parseTime=True" up
+    seed:
+        desc: Run all seed files (up)
+        cmds:
+        - goose -dir ./database/seeds -table _seeds mysql "$MYSQL_USER:$MYSQL_PASS@tcp(localhost:3306)/links_db?parseTime=True" up
+    seeddown:
+        desc: Run all seed files (down)
+        cmds:
+        - goose -dir ./database/seeds -table _seeds mysql "$MYSQL_USER:$MYSQL_PASS@tcp(localhost:3306)/links_db?parseTime=True" down
+    buildcss:
+        desc: Build the TailwindCSS file
+        cmds:
+        - npx tailwindcss -i ./styles/index.css -o ./public/styles/index.css
+    watchcss:
+        desc: Build the TailwindCSS file in watch mode
+        cmds:
+        - npx tailwindcss -i ./styles/index.css -o ./public/styles/index.css --watch
+
+    ###################################################
+    # Full Setup
+    ###################################################
+    setup:
+        desc: Setup dependencies for app
+        cmds:
+        - task: runsql    
+        - task: runredis
+        - echo "Waiting for MySQL"
+        - sleep 30
+        - task: migrate
+        - task: seed
+
+

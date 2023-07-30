@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Inconsolata', monospace;
+}
+
+/* 
+* NavLink
+*/
+.nav-link {
+  padding: theme(spacing.4);
+} 
+
+/*
+* Buttons
+*/
+.btn-primary {
+  background-color: theme(colors.amber.500);
+  color: theme(colors.zinc.800);
+  padding: theme(spacing.2) theme(spacing.4);
+  border-radius: theme(spacing.1);
+  border: 1px solid theme(colors.amber.500);
+}
+
+.btn-secondary {
+  background-color: theme(colors.zinc.950);
+  color: theme(colors.zinc.400);
+  padding: theme(spacing.2) theme(spacing.4);
+  border-radius: theme(spacing.1);
+  border: 1px solid theme(colors.zinc.400);
+}
+
+.btn-danger {
+  background-color: theme(colors.rose.500);
+  color: theme(colors.zinc.900);
+  padding: theme(spacing.2) theme(spacing.4);
+  border-radius: theme(spacing.1);
+  border: 1px solid theme(colors.rose.500);
+}
+
+/* 
+* Form controls
+*/
+
+.form-control {
+  margin-bottom: theme(spacing.4);
+  width: 100%;
+}
+
+.form-label {
+  color: theme(colors.zinc.400);
+}
+
+.input-text {
+  background-color: theme(colors.zinc.950);
+  color: theme(colors.amber.500);
+  border: 1px solid theme(colors.zinc.400);
+  border-radius: theme(spacing.1);
+  padding: theme(spacing.2);
+  width: 100%;
+}
+
+.input-checkbox {
+  accent-color: theme(colors.amber.500);
+  width: 24px;
+  height: 24px;
+  border: 2px solid theme(colors.amber.500);
+}
+
+.input-select {
+  background-color: theme(colors.zinc.950);
+  color: theme(colors.amber.500);
+  border: 1px solid theme(colors.zinc.400);
+  border-radius: theme(spacing.1);
+  padding: theme(spacing.2);
+  width: 100%;
+}
+
+.form-field-error {
+  color: theme(colors.rose.600);
+  margin-top: theme(spacing.1);
+}

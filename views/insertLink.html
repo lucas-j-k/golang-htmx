@@ -1,0 +1,34 @@
+<div class="flex justify-center" id="create-link-form-wrapper">
+  <div class="w-11/12 md:w-6/12 p-4 bg-zinc-950 rounded-md shadow">
+    <form hx-post="/admin/links/new" hx-target="#create-link-form-wrapper" hx-swap="outerHTML">
+      <div class="form-control mb-6">
+        <label for="url">URL</label>
+        <input name="url" class="input-text" type="text" value="{{.Link.URL}}" />
+        {{ if .ValidationErrors.URL}}
+        <div class="form-field-error">Invalid URL</div>
+        {{ end }}
+      </div>
+
+      <div class="form-control mb-6">
+        <label for="link_type_id">Link Type</label>
+        <select class="input-select" name="link_type_id">
+          {{range .LinkTypes}}
+          <div>
+            <option value="{{.ID}}">{{.Name}}</option>
+          </div>
+          {{end}}
+        </select>
+        {{ if .ValidationErrors.LinkTypeID}}
+        <div class="form-field-error">Invalid Link Type</div>
+        {{ end }}
+      </div>
+
+      <div class="form-control mb-6 flex justify-between items-center">
+        <label for="published">Published</label>
+        <input type="checkbox" class="input-checkbox" name="published" />
+      </div>
+
+      <button class="btn-primary" type="submit">Submit</button>
+    </form>
+  </div>
+</div>

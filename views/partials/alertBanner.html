@@ -1,0 +1,29 @@
+{{ if .Flash }}
+<div
+  id="flash-banner"
+  class="cursor-pointer fixed bottom-2 right-4 p-4 rounded-sm bg-yellow-500 text-zinc-900 flex items-center justify-between"
+>
+  <span><i class="fa-regular fa-bell"></i></span>
+  <p class="mx-2">{{.Flash}}</p>
+  <button id="flash-banner-close">
+    <i class="fa-regular fa-circle-xmark"></i>
+  </button>
+</div>
+
+<script>
+  var banner = document.querySelector("#flash-banner");
+
+  // add an event listener to close the flash banner
+  if (banner) {
+    banner.addEventListener("click", function () {
+      banner.classList.add("hidden");
+    });
+
+    // auto-close the flash banner after 5 seconds
+    window.setTimeout(() => {
+      banner.classList.add("hidden");
+    }, 3000);
+  }
+</script>
+
+{{end}}

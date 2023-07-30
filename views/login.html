@@ -1,0 +1,21 @@
+<div class="flex justify-center" id="login-form-wrapper">
+  <div class="w-11/12 md:w-6/12 p-4 bg-zinc-950 rounded-md shadow">
+    <form hx-post="/login" hx-target="#login-form-wrapper" hx-swap="outerHTML">
+      {{ if .LoginFailed }}
+      <div class="text-center p-4 text-rose-500">Invalid email or password</div>
+      {{ end }}
+      <div class="form-control">
+        <label for="email" class="form-label">Email</label>
+        <input name="email" type="email" class="input-text" />
+      </div>
+
+      <div class="form-control">
+        <label for="password" class="form-label"> Password </label>
+        <input name="password" type="password" class="input-text" />
+      </div>
+      <div class="form-control">
+        <button class="btn-primary" type="submit">Login</button>
+      </div>
+    </form>
+  </div>
+</div>

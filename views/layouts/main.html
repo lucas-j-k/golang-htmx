@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html data-theme="linksTheme">
+  <head>
+    <title>{{.Title}}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="/static/styles/index.css" />
+  </head>
+  <body>
+    {{template "partials/alertBanner" .}}
+    <div class="min-h-screen md:flex md:justify-between">
+      <div class="w-full md:w-1/5 bg-zinc-950 text-zinc-400">
+        {{template "partials/navigation" .}}
+      </div>
+
+      <div class="min-h-screen w-full md:w-4/5 bg-zinc-900 text-zinc-400 p-2">
+        {{template "partials/user" .}}
+        <h1 class="mt-4 mb-8 text-center text-md font-semibold text-lg">
+          {{.Title}}
+        </h1>
+
+        <div class="p-2" id="main-wrapper relative">{{embed}}</div>
+      </div>
+    </div>
+    <script src="https://unpkg.com/htmx.org@1.9.4"></script>
+  </body>
+</html>

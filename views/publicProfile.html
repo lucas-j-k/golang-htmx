@@ -1,0 +1,18 @@
+<h1>Links for {{.Username}}</h1>
+<!-- TODO - styling -->
+<ul>
+  {{range .Links}}
+  <li class="flex justify-between mb-2 py-4">
+    <div class="w-8/12">
+      <label>URL</label>
+      <p>{{.Url}}</p>
+    </div>
+
+    <div>
+      <p>Link Type</p>
+      <i class="{{.IconClass.String}}"></i>
+      <p>{{.LinkTypeName.String}}</p>
+    </div>
+  </li>
+  {{end}}
+</ul>

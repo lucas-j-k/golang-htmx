@@ -1,0 +1,14 @@
+version: "2"
+sql:
+  - schema: "database/migrations/"
+    queries: "database/queries/"
+    engine: "mysql"
+    gen:
+      go:
+        package: "sqlcservice"
+        out: "database"
+        json_tags_case_style: "camel"
+        emit_pointers_for_null_types: false
+
+
+
