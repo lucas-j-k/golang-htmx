@@ -93,5 +93,5 @@ func main() {
 
 	// Start the server
 	fmt.Printf("Server running on port [%v]\n\n", port)
-	log.Fatal(app.Listen("localhost:8080"))
+	log.Fatal(app.Listen(fmt.Sprintf("localhost:%v", port)))
 }
